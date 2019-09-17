@@ -6,17 +6,17 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class Practice1DrawColorView extends View {
+public class Practice01DrawColorView extends View {
 
-    public Practice1DrawColorView(Context context) {
+    public Practice01DrawColorView(Context context) {
         super(context);
     }
 
-    public Practice1DrawColorView(Context context, @Nullable AttributeSet attrs) {
+    public Practice01DrawColorView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public Practice1DrawColorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public Practice01DrawColorView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -26,5 +26,8 @@ public class Practice1DrawColorView extends View {
 
 //        练习内容：使用 canvas.drawColor() 方法把 View 涂成黄色
 //        黄色： Color.YELLOW
+
+        // 橙色
+        canvas.drawRGB(255, 165, 0);
     }
 }
