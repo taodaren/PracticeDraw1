@@ -101,6 +101,7 @@ public class Practice11PieChartView extends View {
 
         for (int i = 0; i < phoneModels.size(); i++) {
 
+            // 选择哪个手机品牌
             isSelected = i == 0;
 
             offset = isSelected ? 20 : 0;
@@ -112,10 +113,17 @@ public class Practice11PieChartView extends View {
 
             if (i == 0) {
                 startAngle = outset;
-                oX -= offset;
-                oY -= offset;
             } else {
                 startAngle += phoneModels.get(i - 1).percent * to360 + 2;
+            }
+
+            midAngle = startAngle + (float) (percent / 2);
+
+            // 定位圆心
+            if (isSelected) {
+                oX += offset * Math.cos(midAngle * Math.PI / 180);
+                oY += offset * Math.sin(midAngle * Math.PI / 180);
+            } else {
                 oX = getWidth() / 2;
                 oY = (getHeight() - marginBottom) / 2;
             }
@@ -124,8 +132,6 @@ public class Practice11PieChartView extends View {
             right = oX + r;
             top = oY - r;
             bottom = oY + r;
-
-            midAngle = startAngle + (float) (percent / 2);
 
             midX = (float) (oX + Math.cos(midAngle * Math.PI / 180) * r);
             midY = (float) (oY + Math.sin(midAngle * Math.PI / 180) * r);
