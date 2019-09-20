@@ -11,4 +11,13 @@
     <string name="title_draw_path">drawPath()</string>
     <string name="title_draw_histogram">直方图</string>
     <string name="title_draw_pie_chart">饼图</string>
+
+    <string name="phone_brand_huawei">华为</string>
+    <string name="phone_brand_samsung">三星</string>
+    <string name="phone_brand_lenovo">联想</string>
+    <string name="phone_brand_mi">小米</string>
+    <string name="phone_brand_oppo">oppo</string>
+    <string name="phone_brand_vivo">vivo</string>
+    <string name="phone_brand_meizu">魅族</string>
+    <string name="phone_brand_other">其它</string>
 </resources>
