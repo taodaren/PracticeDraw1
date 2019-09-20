@@ -55,12 +55,15 @@ public class Practice11PieChartView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        int marginBottom = 40;
+        int marginPhone = 200;
+
         // 绘制标题
         String title = "2019上半年安卓手机市场占比";
         mPaint.setTextAlign(Paint.Align.CENTER);
         mPaint.setTextSize(48);
         mPaint.setColor(Color.WHITE);
-        canvas.drawText(title, getWidth() / 2, getHeight() - 40, mPaint);
+        canvas.drawText(title, getWidth() / 2, getHeight() - marginBottom, mPaint);
 
         // 扇形绘制起点
         int outset = -188;
@@ -72,17 +75,16 @@ public class Practice11PieChartView extends View {
         double percent;
 
         // 扇形开始角度、划过一半角度
-        float startAngle = 0, midAngle = 0;
+        float startAngle = 0, midAngle;
 
         // 折线两段线
-        int line1 = 20;
-        int line2 = 50;
+        int line1 = 25, line2;
 
         // 椭圆四边
         float left, right, top, bottom;
 
         // 圆的半径及坐标
-        float r, oX, oY;
+        float r = 280, oX, oY;
 
         // 扇形弧线中点坐标
         float midX, midY;
@@ -93,35 +95,51 @@ public class Practice11PieChartView extends View {
         // 折线坐标
         float line1X, line1Y, line2X, line2Y;
 
-        int offset = 0;
+        boolean isSelected;
+
+        int offset;
 
         for (int i = 0; i < phoneModels.size(); i++) {
+
+            isSelected = i == 0;
+
+            offset = isSelected ? 20 : 0;
+
             percent = phoneModels.get(i).percent * to360;
+
+            oX = getWidth() / 2;
+            oY = (getHeight() - marginBottom)  / 2;
+
             if (i == 0) {
                 startAngle = outset;
-                left = 150;
-                right = 730;
-                top = 65;
-                bottom = 640;
+                oX -= offset;
+                oY -= offset;
             } else {
-                startAngle += phoneModels.get(i - 1).percent * to360 + 2.18;
-                left = 180;
-                right = 730;
-                top = 90;
-                bottom = 640;
+                startAngle += phoneModels.get(i - 1).percent * to360 + 2;
+                oX = getWidth() / 2;
+                oY = (getHeight() - marginBottom) / 2;
             }
+
+            left = oX - r;
+            right = oX + r;
+            top = oY - r;
+            bottom = oY + r;
 
             midAngle = startAngle + (float) (percent / 2);
 
-            r = (right - left) / 2;
-            oX = left + r;
-            oY = top + r;
+            midX = (float) (oX + Math.cos(midAngle * Math.PI / 180) * r);
+            midY = (float) (oY + Math.sin(midAngle * Math.PI / 180) * r);
 
-            midX = (float) (oX + Math.cos(midAngle * Math.PI / 180) * (r + offset));
-            midY = (float) (oY + Math.sin(midAngle * Math.PI / 180) * (r + offset));
+            line1X = (float) (oX + Math.cos(midAngle * Math.PI / 180) * (r + line1));
+            line1Y = (float) (oY + Math.sin(midAngle * Math.PI / 180) * (r + line1));
 
-            line1X = (float) (oX + Math.cos(midAngle * Math.PI / 180) * (r + offset + line1));
-            line1Y = (float) (oY + Math.sin(midAngle * Math.PI / 180) * (r + offset + line1));
+            if (line1X > oX) {
+                // 线在右侧
+                line2 = (int) (getWidth() - line1X - marginPhone);
+            } else {
+                // 线在左侧
+                line2 = (int) (getWidth() / 2 - (getWidth() / 2 - line1X) - marginPhone);
+            }
 
             line2X = Math.abs(midAngle) <= 90 ? line1X + line2 : line1X - line2;
             line2Y = line1Y;
